@@ -113,7 +113,7 @@ def call_me():
 # initialize the video stream
 	print("[INFO] starting video stream...")
 	vs = VideoStream(src=0).start()
-
+	flag=False
 
 # loop over the frames from the video stream
 	while True:
@@ -140,8 +140,10 @@ def call_me():
 			label = "{}: {:.2f}%".format(label, max(mask, withoutMask) * 100)
 			if color == (0, 255, 0):
 				 tkinter.messagebox.showinfo("Mask Detected","-------A L L O W E D-------")
-			else:
+				 flag=False
+			elif(not flag):
 				playsound('fff.mp3')
+				flag=True
 					
 
 		# include the probability in the label
@@ -149,7 +151,7 @@ def call_me():
 		# display the label and bounding box rectangle on the output
 		# frame
 			cv2.putText(frame, label, (startX, startY - 10),
-			cv2.FONT_HERSHEY_SIMPLEX, 0.45, color, 2)
+			cv2.FONT_HERSHEY_SIMPLEX, 0.75, color, 2)
 			cv2.rectangle(frame, (startX, startY), (endX, endY), color, 2)
 
 	# show the output frame
